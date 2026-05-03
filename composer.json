@@ -6,6 +6,8 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
+        "ext-openssl": "*",
+        "ext-soap": "*",
         "php": "^8.3",
         "laravel/framework": "^13.0",
         "laravel/sanctum": "*",

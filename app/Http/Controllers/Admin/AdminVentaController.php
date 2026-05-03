@@ -38,9 +38,7 @@ class AdminVentaController extends Controller
         private readonly MercadoPagoCheckoutProService $mercadoPago,
         private readonly CustomerNotificationService $notifications,
         private readonly ShippingOperationService $shippingOperations,
-    )
-    {
-    }
+    ) {}
 
     public function index()
     {
@@ -95,7 +93,7 @@ class AdminVentaController extends Controller
             ])->findOrFail($data['usuario_id']);
 
             $datoFacturacion = null;
-            if (!empty($data['datos_facturacion_id'])) {
+            if (! empty($data['datos_facturacion_id'])) {
                 $datoFacturacion = DatoFacturacion::query()
                     ->where('usuario_id', $usuario->id)
                     ->findOrFail($data['datos_facturacion_id']);
@@ -239,8 +237,8 @@ class AdminVentaController extends Controller
         $venta = Venta::findOrFail($id);
 
         $data = $request->validate([
-            'estado_venta' => ['sometimes', 'string', 'in:' . implode(',', self::ESTADOS_VENTA)],
-            'estado_pago' => ['sometimes', 'string', 'in:' . implode(',', self::ESTADOS_PAGO)],
+            'estado_venta' => ['sometimes', 'string', 'in:'.implode(',', self::ESTADOS_VENTA)],
+            'estado_pago' => ['sometimes', 'string', 'in:'.implode(',', self::ESTADOS_PAGO)],
             'observaciones' => 'nullable|string',
         ]);
 
@@ -279,7 +277,7 @@ class AdminVentaController extends Controller
     private function generateSaleNumber(): string
     {
         do {
-            $numero = 'VTA-' . now()->format('YmdHis') . '-' . random_int(100, 999);
+            $numero = 'VTA-'.now()->format('YmdHis').'-'.random_int(100, 999);
         } while (Venta::query()->where('numero_venta', $numero)->exists());
 
         return $numero;
@@ -294,7 +292,8 @@ class AdminVentaController extends Controller
             'pagos',
             'envios.bultos',
             'envios.eventos',
-            'comprobantes',
+            'comprobantes.comprobanteAsociado',
+            'comprobantes.notasCredito',
         ])->findOrFail($id);
     }
 }

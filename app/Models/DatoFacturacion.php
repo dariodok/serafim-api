@@ -17,7 +17,12 @@ class DatoFacturacion extends Model
         'tipo_documento',
         'numero_documento',
         'cuit',
+        'afip_id_persona',
         'condicion_iva',
+        'condicion_iva_receptor_id',
+        'afip_estado_clave',
+        'afip_ultima_consulta_at',
+        'afip_datos',
         'email_facturacion',
         'provincia',
         'localidad',
@@ -35,11 +40,19 @@ class DatoFacturacion extends Model
         return [
             'principal' => 'boolean',
             'activo' => 'boolean',
+            'condicion_iva_receptor_id' => 'integer',
+            'afip_ultima_consulta_at' => 'datetime',
+            'afip_datos' => 'json',
         ];
     }
 
     public function usuario()
     {
         return $this->belongsTo(Usuario::class);
+    }
+
+    public function afipConsultasFiscales()
+    {
+        return $this->hasMany(AfipConsultaFiscal::class, 'datos_facturacion_id');
     }
 }

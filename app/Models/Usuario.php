@@ -51,6 +51,11 @@ class Usuario extends Authenticatable
         return $this->hasMany(DatoFacturacion::class);
     }
 
+    public function afipConsultasFiscales()
+    {
+        return $this->hasMany(AfipConsultaFiscal::class);
+    }
+
     public function ventas()
     {
         return $this->hasMany(Venta::class);
